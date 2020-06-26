@@ -117,31 +117,26 @@ function appendPageLinks(list) {
      //7. Add the active class to the link that was just clicked. You can identify that clicked link using event.target           
                 e.target.className = 'active';
     
-            });
+            });  
         }
 }
 
-
 // Extra creadit: create a search bar
-function createSearchBar() {
+const searchDiv = document.querySelector('.page-header');
 // create a div and give it class name "student-search" and append it to the .page div
-const searchDiv = document.createElement('div');
-searchDiv.className = 'student-search';
-page.appendChild(searchDiv);
+const searchBar = document.createElement('div');
+searchBar.className = 'student-search';
+searchDiv.appendChild(searchBar);
 
 //create an element to strore valueable
 const input = document.createElement('input');
-input.textContent = 'Search for students...';
-searchDiv.appendChild(input);
+input.placeholder = 'Search for students...';
+searchBar.appendChild(input);
 
 // create a button
 const button = document.createElement('button');
 button.textContent = 'Search';
-searchDiv.appendChild(button);
-    
-return searchDiv;
-    
-}
+searchBar.appendChild(button);
 
 
 
