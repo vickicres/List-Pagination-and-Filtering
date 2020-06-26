@@ -2,7 +2,7 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-   
+
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
 
@@ -18,17 +18,17 @@ FSJS project 2 - List Filter and Pagination
 ***/
 
 // create a variable to store student list item elements in the student-list
-const studentLists = document.querySelectorAll('.student-list li');
+const studentListItems = document.querySelectorAll('.student-item');
+//console.log(studentListItems);
 
+//create variable to store the number of items per each page
 const itemsPerPage = 10;
 
 //reference the main page elements inside of the parent div
-const page = document.getElementsByClassName('.page');
+const page = document.querySelector('.page');
+
 
 /*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
-
    Pro Tips: 
      - Keep in mind that with a list of 54 students, the last page 
        will only display four.
@@ -40,49 +40,45 @@ const page = document.getElementsByClassName('.page');
        "invoke" the function 
 ***/
 
-const showPage = (list, page) => {
-    
-    const startIndex = (page * itemsPerPage) - itemsPerPage;
-    const endIndex = (page * itemsPerPage);
-    
-/*
-Loop over items in the list parameter
--- If the index of a list item is >= the index of the first item that should be shown on the page
--- && the list item index is <= the index of the last item that should be shown on the page, show it
-*/
-    
-     for (let i = 0; i < list.length; i += 1) {
-         if (i >= startIndex && i <= endIndex) {
-             list[i].style.display = '';
-             
-         } else {
-             list[i].style.display = "none";
-         }
+// Create the `showPage` function to hide all of the items in the list except for the ten you want to show.
+function showPage(list, page) {
 
+    //Create two variables to store the start index and the end index of the list items to be displayed on the given page
+    const startIndex = (page * itemsPerPage) - itemsPerPage;
+    const endIndex = (page * itemsPerPage) - 1;
+
+    //loop over the list and hide all the list items except for the 10 items to show at the start page
+    for (let i = 0; i < list.length; i += 1) {
+        list[i].style.display = 'none';
     }
-   
+    /*
+    Loop over items in the list parameter
+    -- If the index of a list item is >= the index of the first item that should be shown on the page
+    -- && the list item index is <= the index of the last item that should be shown on the page, show it
+    */
+    for (let i = 0; i < list.length; i += 1) {
+        if (i >= startIndex && i <= endIndex) {
+            list[i].style.display = '';
+        }
+    }
 }
+
+//showPage(studentListItems, 1);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
 
-const appendPageLinks = (list) => {
- /*
-5. Add an event listener to each a tag. When they are clicked
-call the showPage function to display the appropriate page
-6. Loop over pagination links to remove active class from all links
-7. Add the active class to the link that was just clicked. You can identify that
-clicked link using event.target 
-*/
+function appendPageLinks(list) {
+
     // 1. Determine how many pages are needed for the list by dividing the total number of list items by the max number of items per page
-    
-    const numberOfPages = Math.ceil(list.length / itemsPerPage);
+
+    const numberOfPages = Math.max(list.length / itemsPerPage);
 
     // 2. Create a div, give it the “pagination” class, and append it to the .page div
     const pagDiv = document.createElement('div');
-    div.className = 'pagination';
+    pagDiv.className = 'pagination';
     page.appendChild(pagDiv);
 
     // 3. Add a ul to the “pagination” div to store the pagination links
@@ -90,15 +86,70 @@ clicked link using event.target
     pagDiv.appendChild(ul);
 
     // 4. for every page, add li and a tags with the page number text
-    let li = document.createElement('li');
-    ul.appendChild(li);
+    for (let i = 0; i < numberOfPages; i += 1) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        ul.appendChild(li);
+        li.appendChild(a);
+        // add # to a tag
+        a.href = '#';
+        //use if statement to set the start page to 1 instead 0
+        a.textContent = i + 1;
+        if (i == 0) {
+            a.className = 'active';
+        }
 
-    const a = document.createElement('a');
-    a.href = "#";
-    a.textContent = i;
-    li.appendChild(a);
+    }
+
+    //5. Add an event listener to each a tag. When they are clicked call the showPage function to display the appropriate page
+    // select the ul child element
+        const links = document.querySelector('div.pagination').firstElementChild;
+    
+        for (let i = 0; i < links.children.length; i += 1) {
+    
+            links.children[i].addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage(list, links.children[i].firstElementChild.textContent);
+    //6. Loop over pagination links to remove active class from all appendPageLinks   
+                for (let i = 0; i < links.children.length; i += 1) { 
+                    links.children[i].firstElementChild.classList.remove('active');
+                }
+     //7. Add the active class to the link that was just clicked. You can identify that clicked link using event.target           
+                e.target.className = 'active';
+    
+            });
+    
+        }
+
 }
 
+// Extra creadit: create a search bar
+function createSearchBar() {
+// create a div and give it class name "student-search" and append it to the .page div
+const searchDiv = document.createElement('div');
+searchDiv.className = 'student-search';
+page.appendChild(searchDiv);
+
+//create an element to strore valueable
+const input = document.createElement('input');
+input.textContent = 'Search for students...';
+searchDiv.appendChild(input);
+
+// create a button
+const button = document.createElement('button');
+button.textContent = 'Search';
+searchDiv.appendChild(button);
+    
+return searchDiv;
+    
+}
+
+
+
+// show the paginations on the bottom of the list
+showPage(studentListItems, 1);
+// it will show the list of students on the page when the page button was clicked
+appendPageLinks(studentListItems);
 
 
 
