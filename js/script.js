@@ -118,10 +118,9 @@ function appendPageLinks(list) {
                 e.target.className = 'active';
     
             });
-    
         }
-
 }
+
 
 // Extra creadit: create a search bar
 function createSearchBar() {
