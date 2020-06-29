@@ -167,9 +167,9 @@ const searchFilter = (input, names) => {
     }
 };
 
-
+// show the search result
 addSearch();
-// show the paginations on the bottom of the list
+// show the paginations list
 showPage(studentListItems, 1);
 // it will show the list of students on the page when the page button was clicked
 appendPageLinks(studentListItems);
