@@ -2,6 +2,6 @@
 
 List Pagination and Filtering
  
- I am going for Exceeds expectation. If not meet the expectation, please rejecte my project and let me know what I am missing and what needs to improved.
+ I am going for Exceeds expectation. If not meet the expectation, please reject my project and let me know what I am missing and what needs to improve.
  
  
