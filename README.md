@@ -1,5 +1,7 @@
 #Techdegree Project 2
+
+List Pagination and Filtering
  
- I am going for Exceeds expectation, if not meet the expectation, please rejected my project and let me know what I am missing and what needs to improved.
+ I am going for Exceeds expectation. If not meet the expectation, please rejecte my project and let me know what I am missing and what needs to improved.
  
  
